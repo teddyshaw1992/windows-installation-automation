@@ -1,5 +1,7 @@
 @ECHO off
 
+SETLOCAL
+
 SET APPS_TO_INSTALL=^
  googlechrome ^
  python2 ^
@@ -17,6 +19,12 @@ SET APPS_TO_INSTALL=^
  unchecky ^
  cmder
 
+:PROMPT
+SET /P AREYOUSURE=Are you sure (Y/[N])?
+IF /I "%AREYOUSURE%" NEQ "Y" GOTO END
+
+PAUSE
+
 (for %%a in (%APPS_TO_INSTALL%) do (
    echo Choco install for %%a
    choco install %%a -y
@@ -25,4 +33,9 @@ SET APPS_TO_INSTALL=^
 
 cup all -y
 
-TIMEOUT 10
+:END
+
+ECHO Complete
+PAUSE
+
+ENDLOCAL
